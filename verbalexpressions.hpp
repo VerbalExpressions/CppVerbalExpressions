@@ -269,9 +269,9 @@ public:
         else                      toTest = reduceLines(value);
 
         if(modifiers & GLOBAL)
-            return veregex::regex_search(toTest, boost::regex(pattern, checkFlags()));        
+            return veregex::regex_search(toTest, veregex::regex(pattern, checkFlags()));        
         else
-            return veregex::regex_match(toTest, boost::regex(pattern, checkFlags()));
+            return veregex::regex_match(toTest, veregex::regex(pattern, checkFlags()));
     }
 };
 
