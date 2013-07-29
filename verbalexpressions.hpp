@@ -41,6 +41,7 @@ namespace veregex = std;
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <exception>
 
 class VerEx {
 private:
@@ -162,20 +163,19 @@ public:
         return anyOf(value);
     }
 
-    VerEx & range(std::vector<std::string> args) {
+    VerEx & range(const std::initializer_list<std::string> & args) {
         std::stringstream value;
         value << "[";
 
-        for(unsigned int _from = 0; _from < args.size(); _from += 2) {
-            unsigned int _to = _from+1;
-            if (args.size() <= _to) break;
+        if(args.size() == 0  || args.size() % 2 == 1)
+            throw std::runtime_error("range needs one or more pairs of arguments to work.");
 
-            int from = atoi(args[_from].c_str());
-            int to = atoi(args[_to].c_str());
+        for(auto from = args.begin(), to = from + 1;
+            from != args.end() && to != args.end();
+            from += 2, to += 2) {
 
-            value << from << "-" << to;
+            value << *from << "-" << *to;
         }
-
         value << "]";
 
         return add(value.str());
