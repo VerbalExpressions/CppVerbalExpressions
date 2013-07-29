@@ -78,21 +78,21 @@ auto expr = VerEx();
 
 ### Terms
 * .anything()
-* .anythingBut( value )
+* .anythingBut( const std::string & value )
 * .something()
-* .somethingBut(value)
+* .somethingBut(const std::string & value)
 * .endOfLine()
-* .find( value )
-* .maybe( value )
+* .find( const std::string & value )
+* .maybe( const std::string & value )
 * .startOfLine()
-* .then( value )
+* .then( const std::string & value )
 
 ### Special characters and groups
-* .any( value )
-* .anyOf( value )
+* .any( const std::string & value )
+* .anyOf( const std::string & value )
 * .br()
 * .lineBreak()
-* .range( from, to )
+* .range( const std::initializer_list<std::string> & args )
 * .tab()
 * .word()
 
@@ -102,10 +102,10 @@ auto expr = VerEx();
 * .searchGlobal()
 
 ### Functions
-* .replace( source, value )
+* .replace( const std::string & source, const std::string & value )
 * .test()
 
 ### Other
 * .add( expression )
-* .multiple( value )
+* .multiple( const std::string & value )
 * .alt()
