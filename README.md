@@ -18,8 +18,7 @@ You can see an up to date list of all ports in our [organization](https://github
 
 ## How to get started
 
-C++11 support for regex is still poor in the standard library, you will likely need boost_regex.
-Download / set that up, then try the example file. Once C++ standard supports <regex> decently it will be painless to switch. 
+In case you do not have C++11 compliant standard library you can still use boost.regex.
 
 ## Examples
 
@@ -69,7 +68,8 @@ std::cout << VerEx().find( "red" ).replace( "We have a red house", "blue" ) << s
 Here you can find the API documentation for Verbal Expressions
 
 ## Basic usage
-Basic usage of Verbal Expressions is through a singleton, called `VerEx()`, that creates a new expression for you:
+Basic usage of Verbal Expressions starts from the expression `VerEx()`. You can chain methods afterwards. Those are described under the "terms" section.
+
 ```c++
 auto expr = VerEx();
 ```
