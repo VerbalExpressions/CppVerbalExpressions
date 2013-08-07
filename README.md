@@ -18,8 +18,7 @@ You can see an up to date list of all ports in our [organization](https://github
 
 ## How to get started
 
-C++11 support for regex is still poor in the standard library, you will likely need boost_regex.
-Download / set that up, then try the example file. Once C++ standard supports <regex> decently it will be painless to switch. 
+In case you do not have C++11 compliant standard library you can still use boost.regex.
 
 ## Examples
 
