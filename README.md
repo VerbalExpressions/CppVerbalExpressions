@@ -69,7 +69,8 @@ std::cout << VerEx().find( "red" ).replace( "We have a red house", "blue" ) << s
 Here you can find the API documentation for Verbal Expressions
 
 ## Basic usage
-Basic usage of Verbal Expressions is through a singleton, called `VerEx()`, that creates a new expression for you:
+Basic usage of Verbal Expressions starts from the expression `VerEx()`. You can chain methods afterwards. Those are described under the "terms" section.
+
 ```c++
 auto expr = VerEx();
 ```
