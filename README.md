@@ -8,7 +8,7 @@ VerbalExpressions is a C++11 Header library that helps to construct difficult re
 This C++ lib is based off of the (original) Javascript [VerbalExpressions](https://github.com/jehna/VerbalExpressions) library by [jehna](https://github.com/jehna/).
 
 ## Other Implementations
-You can see an up to date list of all ports in our [organization](https://github.com/VerbalExpressions).
+You can see an up to date list of all ports on [VerbalExpressions.github.io](http://VerbalExpressions.github.io).
 - [Javascript](https://github.com/jehna/VerbalExpressions)
 - [Ruby](https://github.com/VerbalExpressions/RubyVerbalExpressions)
 - [C#](https://github.com/VerbalExpressions/CSharpVerbalExpressions)
