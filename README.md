@@ -74,7 +74,7 @@ Basic usage of Verbal Expressions starts from the expression `verex()`. You can 
 auto expr = verex();
 ```
 
-##API 
+##API
 
 ### Terms
 * .anything()
