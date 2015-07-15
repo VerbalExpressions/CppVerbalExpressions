@@ -27,8 +27,6 @@
 #ifndef VERBAL_EXPRESSIONS_H_
 #define VERBAL_EXPRESSIONS_H_
 
-#define USE_BOOST
-
 #ifdef USE_BOOST
 #include <boost/regex.hpp>
 namespace veregex = boost;
