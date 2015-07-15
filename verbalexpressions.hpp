@@ -27,7 +27,6 @@
 #ifndef VERBAL_EXPRESSIONS_H_
 #define VERBAL_EXPRESSIONS_H_
 
-#define USE_BOOST
 
 #ifdef USE_BOOST
 #include <boost/regex.hpp>
@@ -44,6 +43,8 @@ namespace veregex = std;
 
 class verex
 {
+using flag_type = veregex::regex::flag_type;
+
 private:
     std::string prefixes;
     std::string source;
@@ -61,9 +62,9 @@ private:
         return strm << v.pattern;
     }
 
-    unsigned int check_flags()
+    flag_type check_flags() const
     {
-        return (modifiers & CASEINSENSITIVE) ? veregex::regex::icase : 0;
+        return (modifiers & CASEINSENSITIVE) ? veregex::regex::icase : static_cast<flag_type>(0);
     }
 
     const std::string reduce_lines(const std::string & value)
