@@ -1,3 +1,8 @@
 *.o
 *.obj
 example
+CMakeFiles
+cmake_install.cmake
+CMakeCache.txt
+CppVerbalExpressionsExample
+Makefile

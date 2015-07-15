@@ -8,7 +8,7 @@ VerbalExpressions is a C++11 Header library that helps to construct difficult re
 This C++ lib is based off of the (original) Javascript [VerbalExpressions](https://github.com/jehna/VerbalExpressions) library by [jehna](https://github.com/jehna/).
 
 ## Other Implementations
-You can see an up to date list of all ports in our [organization](https://github.com/VerbalExpressions).
+You can see an up to date list of all ports on [VerbalExpressions.github.io](http://VerbalExpressions.github.io).
 - [Javascript](https://github.com/jehna/VerbalExpressions)
 - [Ruby](https://github.com/VerbalExpressions/RubyVerbalExpressions)
 - [C#](https://github.com/VerbalExpressions/CSharpVerbalExpressions)
@@ -18,8 +18,7 @@ You can see an up to date list of all ports in our [organization](https://github
 
 ## How to get started
 
-C++11 support for regex is still poor in the standard library, you will likely need boost_regex.
-Download / set that up, then try the example file. Once C++ standard supports <regex> decently it will be painless to switch. 
+In case you do not have C++11 compliant standard library you can still use boost.regex.
 
 ## Examples
 
@@ -69,7 +68,8 @@ std::cout << VerEx().find( "red" ).replace( "We have a red house", "blue" ) << s
 Here you can find the API documentation for Verbal Expressions
 
 ## Basic usage
-Basic usage of Verbal Expressions is through a singleton, called `VerEx()`, that creates a new expression for you:
+Basic usage of Verbal Expressions starts from the expression `VerEx()`. You can chain methods afterwards. Those are described under the "terms" section.
+
 ```c++
 auto expr = VerEx();
 ```
@@ -78,21 +78,21 @@ auto expr = VerEx();
 
 ### Terms
 * .anything()
-* .anythingBut( value )
+* .anythingBut( const std::string & value )
 * .something()
-* .somethingBut(value)
+* .somethingBut(const std::string & value)
 * .endOfLine()
-* .find( value )
-* .maybe( value )
+* .find( const std::string & value )
+* .maybe( const std::string & value )
 * .startOfLine()
-* .then( value )
+* .then( const std::string & value )
 
 ### Special characters and groups
-* .any( value )
-* .anyOf( value )
+* .any( const std::string & value )
+* .anyOf( const std::string & value )
 * .br()
 * .lineBreak()
-* .range( from, to )
+* .range( const std::initializer_list<std::string> & args )
 * .tab()
 * .word()
 
@@ -102,10 +102,10 @@ auto expr = VerEx();
 * .searchGlobal()
 
 ### Functions
-* .replace( source, value )
+* .replace( const std::string & source, const std::string & value )
 * .test()
 
 ### Other
 * .add( expression )
-* .multiple( value )
+* .multiple( const std::string & value )
 * .alt()
