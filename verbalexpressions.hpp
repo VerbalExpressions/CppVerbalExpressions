@@ -27,6 +27,8 @@
 #ifndef VERBAL_EXPRESSIONS_H_
 #define VERBAL_EXPRESSIONS_H_
 
+#define USE_BOOST
+
 #ifdef USE_BOOST
 #include <boost/regex.hpp>
 namespace veregex = boost;
@@ -40,7 +42,7 @@ namespace veregex = std;
 #include <vector>
 #include <algorithm>
 
-class VerEx
+class verex
 {
 private:
     std::string prefixes;
@@ -51,19 +53,19 @@ private:
                  MULTILINE = 2,
                  CASEINSENSITIVE = 4 };
 
-    friend std::ostream& operator<<(std::ostream &strm, VerEx &v)
+    friend std::ostream& operator<<(std::ostream &strm, verex &v)
     {
         return strm << v.pattern;
     }
 
-    unsigned int checkFlags()
+    unsigned int check_flags()
     {
         unsigned int result = 0;
         if(modifiers & CASEINSENSITIVE) result |= veregex::regex::icase;
         return result;
     }
 
-    const std::string reduceLines(const std::string & value)
+    const std::string reduce_lines(const std::string & value)
     {
         std::string ret = value;
         std::size_t pos = ret.find("\n");
@@ -74,74 +76,74 @@ private:
 public:
     unsigned int modifiers;
 
-    VerEx() : prefixes(""), 
+    verex() : prefixes(""), 
               source(""), 
               suffixes(""), 
               pattern(""), 
               modifiers(0){};
-    VerEx& operator=(const VerEx& ve) = default;
-    ~VerEx() = default;
+    verex& operator=(const verex& ve) = default;
+    ~verex() = default;
     
-    VerEx & add(const std::string & value)
+    verex & add(const std::string & value)
     {
         source = source + value;
         pattern = prefixes + source + suffixes;
         return (*this);
     }
 
-    VerEx & startOfLine(bool enable)
+    verex & start_of_line(bool enable)
     {
         prefixes = enable ? "^" : "";
         return add("");
     }
 
-    inline VerEx & startOfLine()
+    inline verex & start_of_line()
     {
-        return startOfLine(true);
+        return start_of_line(true);
     }
 
-    VerEx & endOfLine(bool enable)
+    verex & end_of_line(bool enable)
     {
         suffixes = enable ? "$" : "";
         return add("");
     }
 
-    inline VerEx & endOfLine()
+    inline verex & end_of_line()
     {
-        return endOfLine(true);
+        return end_of_line(true);
     }
 
-    VerEx & then(const std::string & value)
+    verex & then(const std::string & value)
     {
         return add("(?:" + value + ")");
     }
 
-    VerEx & find(const std::string & value)
+    verex & find(const std::string & value)
     {
         return then(value);
     }
 
-    VerEx & maybe(const std::string & value)
+    verex & maybe(const std::string & value)
     {
         return add("(?:" + value + ")?");
     }
 
-    VerEx & anything()
+    verex & anything()
     {
         return add("(?:.*)");
     }
 
-    VerEx & anythingBut(const std::string & value)
+    verex & anything_but(const std::string & value)
     {
         return add("(?:[^" + value + "]*)");
     }
 
-    VerEx & something()
+    verex & something()
     {
         return add("(?:.+)");
     }
 
-    VerEx & somethingBut(const std::string & value)
+    verex & something_but(const std::string & value)
     {
         return add("(?:[^" + value + "]+)");
     }
@@ -149,41 +151,41 @@ public:
     const std::string replace(const std::string & source, const std::string & value)
     {
         return veregex::regex_replace(  source,
-                                        veregex::regex(pattern, checkFlags()), 
+                                        veregex::regex(pattern, check_flags()), 
                                         value);
     }
 
-    VerEx & lineBreak()
+    verex & linebreak()
     {
         return add("(?:(?:\\n)|(?:\\r\\n))");
     }
 
-    inline VerEx & br()
+    inline verex & br()
     {
-        return lineBreak();
+        return linebreak();
     }
 
-    VerEx & tab()
+    verex & tab()
     {
         return add("\\t");
     }
 
-    VerEx & word()
+    verex & word()
     {
         return add("\\w+");
     }
 
-    VerEx & anyOf(const std::string & value)
+    verex & any_of(const std::string & value)
     {
         return add( "[" + value + "]" );
     }
 
-    VerEx & any(const std::string & value)
+    verex & any(const std::string & value)
     {
-        return anyOf(value);
+        return any_of(value);
     }
 
-    VerEx & range(std::vector<std::string> args)
+    verex & range(std::vector<std::string> args)
     {
         std::stringstream value;
         value << "[";
@@ -203,7 +205,7 @@ public:
         return add(value.str());
     }
 
-    VerEx & addModifier(char modifier)
+    verex & add_modifier(char modifier)
     {
         switch (modifier) {
             case 'i':
@@ -222,7 +224,7 @@ public:
         return (*this);
     }
 
-    VerEx & removeModifier(char modifier)
+    verex & remove_modifier(char modifier)
     {
         switch (modifier) {
             case 'i':
@@ -242,43 +244,43 @@ public:
     }
 
 
-    VerEx & withAnyCase(bool enable)
+    verex & with_any_case(bool enable)
     {
-        if (enable) addModifier( 'i' );
-        else removeModifier( 'i' );
+        if (enable) add_modifier( 'i' );
+        else remove_modifier( 'i' );
         return (*this);
     }
 
-    inline VerEx & withAnyCase()
+    inline verex & with_any_case()
     {
-        return withAnyCase(true);
+        return with_any_case(true);
     }
 
-    VerEx & searchOneLine(bool enable)
+    verex & search_one_line(bool enable)
     {
-        if (enable) removeModifier( 'm' );
-        else addModifier( 'm' );
+        if (enable) remove_modifier( 'm' );
+        else add_modifier( 'm' );
         return (*this);
     }
 
-    inline VerEx & searchOneLine()
+    inline verex & search_one_line()
     {
-        return searchOneLine(true);
+        return search_one_line(true);
     }
 
-    VerEx & searchGlobal(bool enable)
+    verex & search_global(bool enable)
     {
-        if (enable) addModifier( 'g' );
-        else removeModifier( 'g' );
+        if (enable) add_modifier( 'g' );
+        else remove_modifier( 'g' );
         return (*this);
     }
 
-    inline VerEx & searchGlobal()
+    inline verex & search_global()
     {
-        return searchGlobal(true);
+        return search_global(true);
     }
 
-    VerEx & multiple(const std::string & value)
+    verex & multiple(const std::string & value)
     {
         if(value.at(0) != '*' && value.at(0) != '+')
             add("+");
@@ -286,7 +288,7 @@ public:
         return add(value);
     }
 
-    VerEx & alt(const std::string & value)
+    verex & alt(const std::string & value)
     {
         if (prefixes.find("(") == std::string::npos) prefixes += "(";
         if (suffixes.find(")") == std::string::npos) suffixes = ")" + suffixes;
@@ -299,12 +301,12 @@ public:
     {
         std::string toTest;
         if(modifiers & MULTILINE) toTest = value;
-        else                      toTest = reduceLines(value);
+        else                      toTest = reduce_lines(value);
 
         if(modifiers & GLOBAL)
-            return veregex::regex_search(toTest, veregex::regex(pattern, checkFlags()));        
+            return veregex::regex_search(toTest, veregex::regex(pattern, check_flags()));        
         else
-            return veregex::regex_match(toTest, veregex::regex(pattern, checkFlags()));
+            return veregex::regex_match(toTest, veregex::regex(pattern, check_flags()));
     }
 };
 
