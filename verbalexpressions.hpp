@@ -49,9 +49,12 @@ private:
     std::string source;
     std::string suffixes;
     std::string pattern;
-    enum Flags { GLOBAL = 1,
-                 MULTILINE = 2,
-                 CASEINSENSITIVE = 4 };
+
+    enum Flags {
+        GLOBAL          = 1
+      , MULTILINE       = 2
+      , CASEINSENSITIVE = 4
+    };
 
     friend std::ostream& operator<<(std::ostream &strm, verex &v)
     {
@@ -78,11 +81,12 @@ private:
 public:
     unsigned int modifiers;
 
-    verex() : prefixes(""),
-              source(""),
-              suffixes(""),
-              pattern(""),
-              modifiers(0){};
+    verex() :
+          prefixes("")
+        , source("")
+        , suffixes("")
+        , pattern("")
+        , modifiers(0) {};
 
     verex& operator=(const verex& ve) = default;
     ~verex() = default;
@@ -253,9 +257,9 @@ public:
     verex & with_any_case(const bool enable)
     {
         if (enable) {
-            add_modifier( 'i' );
+            add_modifier('i');
         } else {
-            remove_modifier( 'i' );
+            remove_modifier('i');
         }
 
         return (*this);
@@ -269,9 +273,9 @@ public:
     verex & search_one_line(const bool enable)
     {
         if (enable) {
-            remove_modifier( 'm' );
+            remove_modifier('m');
         } else {
-            add_modifier( 'm' );
+            add_modifier('m');
         }
 
         return (*this);
@@ -285,9 +289,9 @@ public:
     verex & search_global(const bool enable)
     {
         if (enable) {
-            add_modifier( 'g' );
+            add_modifier('g');
         } else {
-            remove_modifier( 'g' );
+            remove_modifier('g');
         }
 
         return (*this);
@@ -317,7 +321,7 @@ public:
             suffixes = ")" + suffixes;
         }
 
-        add( ")|(" );
+        add(")|(");
 
         return then(value);
     }
