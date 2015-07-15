@@ -202,14 +202,14 @@ public:
         value << "[";
 
         for(unsigned int _from = 0; _from < args.size(); _from += 2) {
-            unsigned int _to = _from+1;
+            const unsigned int _to = _from+1;
 
             if (args.size() <= _to) {
                 break;
             }
 
-            int from = atoi(args[_from].c_str());
-            int to   = atoi(args[_to].c_str());
+            const int from = atoi(args[_from].c_str());
+            const int to   = atoi(args[_to].c_str());
 
             value << from << "-" << to;
         }
