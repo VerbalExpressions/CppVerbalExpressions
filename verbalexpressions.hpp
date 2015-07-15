@@ -60,16 +60,18 @@ private:
 
     unsigned int check_flags()
     {
-        unsigned int result = 0;
-        if(modifiers & CASEINSENSITIVE) result |= veregex::regex::icase;
-        return result;
+        return (modifiers & CASEINSENSITIVE) ? veregex::regex::icase : 0;
     }
 
     const std::string reduce_lines(const std::string & value)
     {
-        std::string ret = value;
-        std::size_t pos = ret.find("\n");
-        if(pos == std::string::npos) return ret;
+        const std::string ret = value;
+        const std::size_t pos = ret.find("\n");
+
+        if(pos == std::string::npos) {
+            return ret;
+        }
+
         return ret.substr(0, pos);
     }
 
@@ -152,7 +154,7 @@ public:
     const std::string replace(const std::string & source, const std::string & value)
     {
         return veregex::regex_replace(  source,
-                                        veregex::regex(pattern, check_flags()), 
+                                        veregex::regex(pattern, check_flags()),
                                         value);
     }
 
@@ -193,10 +195,13 @@ public:
 
         for(unsigned int _from = 0; _from < args.size(); _from += 2) {
             unsigned int _to = _from+1;
-            if (args.size() <= _to) break;
+
+            if (args.size() <= _to) {
+                break;
+            }
 
             int from = atoi(args[_from].c_str());
-            int to = atoi(args[_to].c_str());
+            int to   = atoi(args[_to].c_str());
 
             value << from << "-" << to;
         }
@@ -247,8 +252,12 @@ public:
 
     verex & with_any_case(bool enable)
     {
-        if (enable) add_modifier( 'i' );
-        else remove_modifier( 'i' );
+        if (enable) {
+            add_modifier( 'i' );
+        } else {
+            remove_modifier( 'i' );
+        }
+
         return (*this);
     }
 
@@ -259,8 +268,12 @@ public:
 
     verex & search_one_line(bool enable)
     {
-        if (enable) remove_modifier( 'm' );
-        else add_modifier( 'm' );
+        if (enable) {
+            remove_modifier( 'm' );
+        } else {
+            add_modifier( 'm' );
+        }
+
         return (*this);
     }
 
@@ -271,8 +284,12 @@ public:
 
     verex & search_global(bool enable)
     {
-        if (enable) add_modifier( 'g' );
-        else remove_modifier( 'g' );
+        if (enable) {
+            add_modifier( 'g' );
+        } else {
+            remove_modifier( 'g' );
+        }
+
         return (*this);
     }
 
@@ -291,23 +308,28 @@ public:
 
     verex & alt(const std::string & value)
     {
-        if (prefixes.find("(") == std::string::npos) prefixes += "(";
-        if (suffixes.find(")") == std::string::npos) suffixes = ")" + suffixes;
+        if (prefixes.find("(") == std::string::npos) {
+            prefixes += "(";
+        }
+
+        if (suffixes.find(")") == std::string::npos) {
+            suffixes = ")" + suffixes;
+        }
 
         add( ")|(" );
+
         return then(value);
     }
 
     bool test(const std::string & value)
     {
-        std::string toTest;
-        if(modifiers & MULTILINE) toTest = value;
-        else                      toTest = reduce_lines(value);
+        const std::string to_test = (modifiers & MULTILINE) ? value : reduce_lines(value);
 
-        if(modifiers & GLOBAL)
-            return veregex::regex_search(toTest, veregex::regex(pattern, check_flags()));
-        else
-            return veregex::regex_match(toTest, veregex::regex(pattern, check_flags()));
+        if (modifiers & GLOBAL) {
+            return veregex::regex_search(to_test, veregex::regex(pattern, check_flags()));
+        } else {
+            return veregex::regex_match(to_test, veregex::regex(pattern, check_flags()));
+        }
     }
 };
 
