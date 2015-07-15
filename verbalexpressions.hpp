@@ -54,6 +54,8 @@ private:
     std::string source;
     std::string suffixes;
     std::string pattern;
+    unsigned int modifiers;
+
 
     enum Flags {
         GLOBAL          = 1
@@ -83,8 +85,6 @@ private:
     }
 
 public:
-    unsigned int modifiers;
-
     verex() :
           prefixes("")
         , source("")
