@@ -17,9 +17,9 @@ int main() {
                 .end_of_line();
 
     // Use VerEx's test() function to find if it matches
-    std::cout << expr.test("https://www.google.com") << std::endl;
+    std::cout << (expr.test("https://www.google.com") ? "matches" : "doesn't match") << std::endl;
 
-    // Ouputs the actual expression used: ^(?:http)(?:s)?(?:://)(?:www.)?(?:[^ ]*)$
+    // Ouputs the actual expression used
     std::cout << expr << std::endl;
 
 
