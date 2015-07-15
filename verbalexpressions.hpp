@@ -94,24 +94,24 @@ public:
         return (*this);
     }
 
-    verex & start_of_line(bool enable)
+    verex & start_of_line(const bool enable)
     {
         prefixes = enable ? "^" : "";
         return add("");
     }
 
-    inline verex & start_of_line()
+    verex & start_of_line()
     {
         return start_of_line(true);
     }
 
-    verex & end_of_line(bool enable)
+    verex & end_of_line(const bool enable)
     {
         suffixes = enable ? "$" : "";
         return add("");
     }
 
-    inline verex & end_of_line()
+    verex & end_of_line()
     {
         return end_of_line(true);
     }
@@ -151,7 +151,7 @@ public:
         return add("(?:[^" + value + "]+)");
     }
 
-    const std::string replace(const std::string & source, const std::string & value)
+    std::string replace(const std::string & source, const std::string & value)
     {
         return veregex::regex_replace(  source,
                                         veregex::regex(pattern, check_flags()),
@@ -163,7 +163,7 @@ public:
         return add("(?:(?:\\n)|(?:\\r\\n))");
     }
 
-    inline verex & br()
+    verex & br()
     {
         return linebreak();
     }
@@ -188,7 +188,7 @@ public:
         return any_of(value);
     }
 
-    verex & range(std::vector<std::string> args)
+    verex & range(const std::vector<std::string> & args)
     {
         std::stringstream value;
         value << "[";
@@ -211,7 +211,7 @@ public:
         return add(value.str());
     }
 
-    verex & add_modifier(char modifier)
+    verex & add_modifier(const char modifier)
     {
         switch (modifier) {
             case 'i':
@@ -230,7 +230,7 @@ public:
         return (*this);
     }
 
-    verex & remove_modifier(char modifier)
+    verex & remove_modifier(const char modifier)
     {
         switch (modifier) {
             case 'i':
@@ -250,7 +250,7 @@ public:
     }
 
 
-    verex & with_any_case(bool enable)
+    verex & with_any_case(const bool enable)
     {
         if (enable) {
             add_modifier( 'i' );
@@ -261,12 +261,12 @@ public:
         return (*this);
     }
 
-    inline verex & with_any_case()
+    verex & with_any_case()
     {
         return with_any_case(true);
     }
 
-    verex & search_one_line(bool enable)
+    verex & search_one_line(const bool enable)
     {
         if (enable) {
             remove_modifier( 'm' );
@@ -277,12 +277,12 @@ public:
         return (*this);
     }
 
-    inline verex & search_one_line()
+    verex & search_one_line()
     {
         return search_one_line(true);
     }
 
-    verex & search_global(bool enable)
+    verex & search_global(const bool enable)
     {
         if (enable) {
             add_modifier( 'g' );
@@ -293,7 +293,7 @@ public:
         return (*this);
     }
 
-    inline verex & search_global()
+    verex & search_global()
     {
         return search_global(true);
     }
