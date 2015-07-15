@@ -73,14 +73,13 @@ private:
 
     std::string reduce_lines(const std::string & value) const
     {
-        const std::string ret = value;
-        const std::size_t pos = ret.find("\n");
+        const std::size_t pos = value.find("\n");
 
         if(pos == std::string::npos) {
-            return ret;
+            return value;
         }
 
-        return ret.substr(0, pos);
+        return value.substr(0, pos);
     }
 
 public:
