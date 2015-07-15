@@ -41,6 +41,9 @@ namespace veregex = std;
 #include <vector>
 #include <algorithm>
 
+namespace verex
+{
+
 class verex
 {
 using flag_type = veregex::regex::flag_type;
@@ -338,5 +341,7 @@ public:
         }
     }
 };
+
+} // namespace verex
 
 #endif

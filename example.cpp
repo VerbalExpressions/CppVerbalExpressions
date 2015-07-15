@@ -3,6 +3,7 @@
 #include <string>
 
 int main() {
+    using verex::verex;
 
     // Create an example of how to test for correctly formed URLs
     verex expr = verex()
