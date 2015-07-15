@@ -198,6 +198,11 @@ public:
 
     verex & range(const std::vector<std::string> & args)
     {
+        if (args.size() % 2 != 0) {
+            std::cerr << "verex::range must have even number of inputs" << std::endl;
+            exit(1);
+        }
+
         std::stringstream value;
         value << "[";
 
