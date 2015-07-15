@@ -92,7 +92,8 @@ auto expr = verex();
 * .any_of( const std::string & value )
 * .br()
 * .linebreak()
-* .range( const std::vector<std::string> & args )
+* .range( const std::vector<std::pair<std::string, std::string>> & args )
+* .range( const std::std::string & a, const & std::string b )
 * .tab()
 * .word()
 

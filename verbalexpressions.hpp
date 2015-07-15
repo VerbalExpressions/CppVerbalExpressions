@@ -40,6 +40,7 @@ namespace veregex = std;
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <utility>
 
 namespace verex
 {
@@ -196,25 +197,14 @@ public:
         return any_of(value);
     }
 
-    verex & range(const std::vector<std::string> & args)
+    verex & range(const std::vector<std::pair<std::string, std::string>> & args)
     {
-        if (args.size() % 2 != 0) {
-            std::cerr << "verex::range must have even number of inputs" << std::endl;
-            exit(1);
-        }
-
         std::stringstream value;
         value << "[";
 
-        for(unsigned int _from = 0; _from < args.size(); _from += 2) {
-            const unsigned int _to = _from+1;
-
-            if (args.size() <= _to) {
-                break;
-            }
-
-            const int from = atoi(args[_from].c_str());
-            const int to   = atoi(args[_to].c_str());
+        for(const auto & item : args) {
+            const std::string from = item.first;
+            const std::string to   = item.second;
 
             value << from << "-" << to;
         }
@@ -222,6 +212,11 @@ public:
         value << "]";
 
         return add(value.str());
+    }
+
+    verex & range(const std::string & a, const std::string & b)
+    {
+        return range({{a, b}});
     }
 
     verex & add_modifier(const char modifier)
