@@ -300,8 +300,9 @@ public:
 
     verex & multiple(const std::string & value)
     {
-        if(value.at(0) != '*' && value.at(0) != '+')
+        if (value.length() > 0 && value.at(0) != '*' && value.at(0) != '+') {
             add("+");
+        }
 
         return add(value);
     }
