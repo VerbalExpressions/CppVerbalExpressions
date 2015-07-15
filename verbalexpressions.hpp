@@ -161,9 +161,11 @@ public:
 
     std::string replace(const std::string & source, const std::string & value)
     {
-        return veregex::regex_replace(  source,
-                                        veregex::regex(pattern, check_flags()),
-                                        value);
+        return veregex::regex_replace(
+            source
+          , veregex::regex(pattern, check_flags())
+          , value
+        );
     }
 
     verex & linebreak()
@@ -201,7 +203,7 @@ public:
         std::stringstream value;
         value << "[";
 
-        for(const auto & item : args) {
+        for (const auto & item : args) {
             const std::string from = item.first;
             const std::string to   = item.second;
 
