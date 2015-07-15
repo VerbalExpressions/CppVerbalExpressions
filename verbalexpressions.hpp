@@ -70,7 +70,7 @@ private:
         return (modifiers & CASEINSENSITIVE) ? veregex::regex::icase : static_cast<flag_type>(0);
     }
 
-    const std::string reduce_lines(const std::string & value)
+    std::string reduce_lines(const std::string & value) const
     {
         const std::string ret = value;
         const std::size_t pos = ret.find("\n");
