@@ -73,7 +73,7 @@ private:
         return (modifiers & CASEINSENSITIVE) ? veregex::regex::icase : static_cast<flag_type>(0);
     }
 
-    std::string reduce_lines(const std::string & value) const
+    static std::string reduce_lines(const std::string & value)
     {
         const std::size_t pos = value.find("\n");
 
@@ -159,10 +159,10 @@ public:
         return add("(?:[^" + value + "]+)");
     }
 
-    std::string replace(const std::string & source, const std::string & value)
+    std::string replace(const std::string & src, const std::string & value) const
     {
         return veregex::regex_replace(
-            source
+            src
           , veregex::regex(pattern, check_flags())
           , value
         );
@@ -318,11 +318,11 @@ public:
 
     verex & alt(const std::string & value)
     {
-        if (prefixes.find("(") == std::string::npos) {
+        if (prefixes.find('(') == std::string::npos) {
             prefixes += "(";
         }
 
-        if (suffixes.find(")") == std::string::npos) {
+        if (suffixes.find(')') == std::string::npos) {
             suffixes = ")" + suffixes;
         }
 
@@ -331,7 +331,7 @@ public:
         return then(value);
     }
 
-    bool test(const std::string & value)
+    bool test(const std::string & value) const
     {
         const std::string to_test = (modifiers & MULTILINE) ? value : reduce_lines(value);
 
